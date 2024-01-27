@@ -9,6 +9,7 @@ import CountdownTimer from "./components/Crono";
 
 import { Html } from "@react-three/drei"
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 export default function Home(params) {
@@ -21,14 +22,7 @@ export default function Home(params) {
       setlink('home')
     }
   })
-  console.log(params.searchParams.page)
-  useMemo(()=>{
-    if(link==='home'){
-      window.scrollTo(0,0)
-    }else if(link==='countdown'){
-      window.scrollTo(0,2580)
-    }
-  },[link])
+  
 
   useEffect(()=>{
     if(params.searchParams.page ==='home'){
@@ -84,7 +78,7 @@ const HalvingBoy=lazy(()=>import('./components/models/Littleboy'),{ ssr:false})
             
         <div className="md:order-last size-full bg-transparent py-20 md:py-20 p-6 relative z-30">
           
-          <h1 className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 -translate-y-full translate-x-full ") +" duration-500 transition-all ease-in-out text-yellow-950 text-7xl md:text-8xl font-bold tittle"}>BITCOIN <br/> <span className="text-5xl text-amber-500">HALVING</span><br/> <span className="text-6xl">IS HERE!</span><br/> <button onClick={()=>setlink('countdown')} className="text-lg text-white bg-amber-500 rounded-lg w-fit h-fit p-2 hover:scale-105 hover:shadow-lg relative z-30">COUNTDOWN</button></h1>
+          <h1 className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 -translate-y-full translate-x-full ") +" duration-500 transition-all ease-in-out text-yellow-950 text-7xl md:text-8xl font-bold tittle"}>BITCOIN <br/> <span className="text-5xl text-amber-500">HALVING</span><br/> <span className="text-6xl">IS HERE!</span><br/> <Link href={'/?page=countdown'}  className="text-lg text-white bg-amber-500 rounded-lg w-fit h-fit p-2 hover:scale-105 hover:shadow-lg relative z-30">COUNTDOWN</Link></h1>
           
           <div id={'home'} className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-500 transition-all ease-in-out backdrop-blur-xl bg-white/30 shadow-lg order-last cursor-grab w-full h-[100vh] flex flex-col justify-start items-center p-8"}>
               <div className={(scroll>40 && scroll<400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-700 transition-all ease-in-out bg-white rounded-lg shadow-lg order-last cursor-grab w-fit h-fit p-4 md:p-8 flex flex-col gap-2 md:gap-6 "}>
