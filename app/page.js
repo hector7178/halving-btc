@@ -2,19 +2,18 @@
 import Image from "next/image";
 import { useMotionValueEvent,useScroll , motion, useSpring} from 'framer-motion'
 import * as THREE from 'three'
-import { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, PresentationControls, Text3D, useProgress } from "@react-three/drei";
 import CountdownTimer from "./components/Crono";
 
 import { Html } from "@react-three/drei"
+import { useParams, useRouter } from "next/navigation";
 
 
-export default function Home() {
-  const [view,setview]=useState(Math.PI / 4)
+export default function Home(params) {
   const { scrollY } = useScroll()
   const [scroll,setScroll]=useState(0)
-  const [sc,setSc]=useState(0)
   const [link,setlink]=useState('')
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScroll(latest)
@@ -22,6 +21,7 @@ export default function Home() {
       setlink('home')
     }
   })
+  console.log(params.searchParams.page)
   useMemo(()=>{
     if(link==='home'){
       window.scrollTo(0,0)
@@ -29,6 +29,16 @@ export default function Home() {
       window.scrollTo(0,2580)
     }
   },[link])
+
+  useEffect(()=>{
+    if(params.searchParams.page ==='home'){
+      window.scrollTo(0,0)
+    }else if(params.searchParams.page ==='about'){
+      window.scrollTo(0,45)
+    }else if(params.searchParams.page==='countdown'){
+      window.scrollTo(0,2580)
+    }
+  },[params.searchParams.page])
  
 
 function Loader() {
@@ -64,8 +74,10 @@ const HalvingBoy=lazy(()=>import('./components/models/Littleboy'),{ ssr:false})
               
             </Canvas>
 
-            <div className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0 translate-x-0 w-full h-full ":"absoluteReq  opacity-0 -translate-y-full -translate-x-full w-[50vw] h-[100vh]")+" duration-500 transition-all ease-in-out bg-amber-500 md:shadow-lg md:backdrop-blur-xl md:bg-white/30 order-last cursor-grab flex justify-center p-8 "}>
-              <div className="bg-cover w-full h-full" style={{backgroundImage:"url('./fondo.svg')"}}></div>
+            <div className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0 translate-x-0 w-full h-full ":"absoluteReq  opacity-0 -translate-y-full -translate-x-full w-[50vw] h-[100vh]")+" duration-500 transition-all ease-in-out bg-amber-500 md:shadow-lg md:backdrop-blur-xl md:bg-white/30 order-last cursor-grab flex justify-center items-center p-8 "}>
+              <Image src={'./btc.svg'} alt='btc' width={100} height={100} className={(scroll>40 && scroll<700?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 translate-y-full -translate-x-full ")+ " hidden md:flex bg-cover md:w-[390px] md:h-[270px] lg:w-[500px] lg:h-[350px] duration-500 transition-all ease-in-out"} ></Image>
+              <Image  src={'./hold.svg'} alt='btc' width={100} height={100} className={(scroll>700 && scroll<1400?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 -translate-y-full -translate-x-full ")+ " hidden md:flex bg-cover md:w-[390px] md:h-[270px] lg:w-[500px] lg:h-[350px] duration-500 transition-all ease-in-out"}></Image>
+            
             </div>
             
         </div> 
@@ -74,7 +86,7 @@ const HalvingBoy=lazy(()=>import('./components/models/Littleboy'),{ ssr:false})
           
           <h1 className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 -translate-y-full translate-x-full ") +" duration-500 transition-all ease-in-out text-yellow-950 text-7xl md:text-8xl font-bold tittle"}>BITCOIN <br/> <span className="text-5xl text-amber-500">HALVING</span><br/> <span className="text-6xl">IS HERE!</span><br/> <button onClick={()=>setlink('countdown')} className="text-lg text-white bg-amber-500 rounded-lg w-fit h-fit p-2 hover:scale-105 hover:shadow-lg relative z-30">COUNTDOWN</button></h1>
           
-          <div className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-500 transition-all ease-in-out backdrop-blur-xl bg-white/30 shadow-lg order-last cursor-grab w-full h-[100vh] flex flex-col justify-start items-center p-8"}>
+          <div id={'home'} className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-500 transition-all ease-in-out backdrop-blur-xl bg-white/30 shadow-lg order-last cursor-grab w-full h-[100vh] flex flex-col justify-start items-center p-8"}>
               <div className={(scroll>40 && scroll<400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-700 transition-all ease-in-out bg-white rounded-lg shadow-lg order-last cursor-grab w-fit h-fit p-4 md:p-8 flex flex-col gap-2 md:gap-6 "}>
                 <h4 className="text-amber-500 font-bold text-2xl sm:text-3xl">What is the Bitcoin halving?</h4>
                 <p className="text-yellow-950 text-md md:text-sm lg:text-xl">The Bitcoin halving is a recurring event that occurs every four years and reduces the rate at which new Bitcoin are created and introduced into the market by 50%. It is an essential part of Bitcoin&apos;s built-in monetary policy, designed to control inflation.</p>

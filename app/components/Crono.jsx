@@ -7,9 +7,10 @@ const CountdownTimer = (prop) => {
   const [seconds, setSeconds] = useState(0);
 
   // Fecha objetivo
-  const endDate = new Date("09 April 2024, 21:08 UTC");
+  
 
   useEffect(() => {
+    const endDate = new Date("17 April 2024, 14:14 UTC");
     const interval = setInterval(() => {
       const now = new Date();
       const timeLeft = endDate - now;
