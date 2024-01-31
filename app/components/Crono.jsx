@@ -1,3 +1,4 @@
+import { OrbitControls, Text } from "@react-three/drei";
 import React, { useState, useEffect } from "react";
 
 const CountdownTimer = (prop) => {
@@ -41,8 +42,18 @@ const CountdownTimer = (prop) => {
   }, []);
 
   return (
-    <div {...prop}>
-        <h4 className="text-white text-4xl w-full text-center font-bold">COUNTDOWN</h4>
+    <>
+    <OrbitControls/>
+    <Text font={"../font/ArchivoBlack-Regular.ttf"}>
+      {`${days}:${hours}:${minutes}:${seconds}`}
+      <meshBasicMaterial color={"white"}/>
+
+    </Text>
+    <Text font={"../font/ArchivoBlack-Regular.ttf"}>
+      {`17 April 2024, 14:14 UTC`}
+      <meshBasicMaterial color={"white"}/>
+    </Text>
+        {/* <h4 className="text-white text-4xl w-full text-center font-bold">COUNTDOWN</h4>
         <div className="grid grid-cols-4 h-fit gap-2">
         <p className="rounded-lg bg-white text-amber-500 flex flex-col  items-center justify-center shadow-lg text-2xl md:text-5xl py-10">{days}:<br/><span className="text-sm">Days</span></p>
         <p className="rounded-lg bg-white text-amber-500 flex flex-col  items-center justify-center shadow-lg text-2xl md:text-5xl py-10">{hours}:<br/><span className="text-sm">Hours</span></p>
@@ -50,7 +61,8 @@ const CountdownTimer = (prop) => {
         <p className="rounded-lg bg-white text-amber-500 flex  flex-col items-center justify-center shadow-lg text-2xl md:text-5xl py-10">{seconds}<br/><span className="text-sm">Seconds</span></p>
         </div>
         <span className="text-white text-xl w-full text-center font-bold">09 April 2024, 21:08 UTC</span>
-    </div>
+     */}
+    </>
   );
 };
 

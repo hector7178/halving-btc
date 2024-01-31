@@ -1,39 +1,43 @@
 'use client'
 import Image from "next/image";
 import { useMotionValueEvent,useScroll , motion, useSpring} from 'framer-motion'
-import * as THREE from 'three'
-import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, PresentationControls, Text3D, useProgress } from "@react-three/drei";
-import CountdownTimer from "./components/Crono";
+import { CameraControls, Center, Environment, OrbitControls, PresentationControls, Stars, Text, Text3D, useProgress } from "@react-three/drei";
 
 import { Html } from "@react-three/drei"
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { Box, Flex } from "@react-three/flex";
+import Twitter from "./components/svgs/twitter";
+import Instagram from "./components/svgs/Instagram";
+import Facebook from "./components/svgs/Facebook";
+import Telegram from "./components/svgs/Telegram";
 
 
 export default function Home(params) {
   const { scrollY } = useScroll()
   const [scroll,setScroll]=useState(0)
-  const [link,setlink]=useState('')
+  const [modal, setModal]=useState(false)
+  const [active,setActive]=useState('paused')
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScroll(latest)
-    if(latest<500){
-      setlink('home')
-    }
   })
   
 
   useEffect(()=>{
-    if(params.searchParams.page ==='home'){
+    if(params.searchParams.page ==='home' && typeof window != "undefined"){
       window.scrollTo(0,0)
-    }else if(params.searchParams.page ==='about'){
+    }else if(params.searchParams.page ==='about'  && typeof window != "undefined"){
       window.scrollTo(0,45)
-    }else if(params.searchParams.page==='countdown'){
+    }else if(params.searchParams.page==='countdown'  && typeof window != "undefined"){
       window.scrollTo(0,2580)
     }
   },[params.searchParams.page])
- 
+      
+const cameraRef=useRef()
+const ref=useRef()
+
 
 function Loader() {
     return (<Html center>
@@ -45,28 +49,41 @@ function Loader() {
 }
 
 const HalvingBoy=lazy(()=>import('./components/models/Littleboy'),{ ssr:false})
+const TextCrono=lazy(()=>import('./components/models/Letters'),{ ssr:false})
+const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ssr:false})
+
+
+
 
 
   return (
     <motion.main className="cover min-h-[3000px] h-[380vh] md:h-[500vh] flex flex-col w-full bg-gradient-to-t from-amber-500 via-orange-50 to-orange-50 to-80%">
       <motion.section className={(scroll<65?"h-[90vh] ":"h-[100vh] ")+"fixed grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 h-[90vh] w-full z-10"}>
-        <div className="order-last w-full h-full">
+        <div className="order-last w-full h-full relative ">
             <Canvas 
             
-            className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq bottom-0 opacity-0 translate-y-full -translate-x-full ")+" duration-500 transition-all ease-in-out h-full order-last w-full h-full cursor-grab"} camera={{ position: [-10, 35, 100], fov: 15 }}>
-                
+            className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq bottom-0 opacity-0 translate-y-full -translate-x-full ")+" duration-500 transition-all ease-in-out h-full order-last w-full h-full cursor-grab"} camera={{ position: [1, 10, 10], fov: 25 }}>
+              
+            
+
               <OrbitControls dampingFactor={0.05} maxAzimuthAngle={0.8} minAzimuthAngle={-1} maxPolarAngle={1.8}  enableRotate={true} minPolarAngle={1.2} enableZoom={false} />
               <directionalLight color={'#ffffff'}  position={[100,0,100]} intensity={2}/>
               <directionalLight color={'#ffffff'}  position={[0,100,0]} intensity={4}/>
               <directionalLight color={'#ffffff'}  position={[-100,0,100]} intensity={4}/>
               <Suspense fallback={<Loader/>}>
-                    <HalvingBoy 
-                      
-                      scale={0.75} 
-                      position={[-10, -5, 5]}  />
-                </Suspense>
+                    <Center>
+                      <HalvingBoy 
+                      scale={0.8} 
+                      position={[0,0,0]}/>
+                    </Center>
+
+
+                    
+              </Suspense>
               
             </Canvas>
+            <buttom onClick={()=>setModal(true)} className={(scroll<40? (modal?'opacity-0 ':'opacity-100 ')+"translate-y-0 translate-x-0 ":" opacity-0 translate-y-full -translate-x-full ")+' shadow-xl absolute top-[15%] left-[70%] md:left-[20%] leading-4 flex rounded-full w-fit h-fit p-2 px-6 text-white bg-amber-600 font-bold hover:scale-110 transition-all duration-500 absolute z-20 cursor-pointer'}>Sup<br/>yo</buttom>
+              
 
             <div className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0 translate-x-0 w-full h-full ":"absoluteReq  opacity-0 -translate-y-full -translate-x-full w-[50vw] h-[100vh]")+" duration-500 transition-all ease-in-out bg-amber-500 md:shadow-lg md:backdrop-blur-xl md:bg-white/30 order-last cursor-grab flex justify-center items-center p-8 "}>
               <Image src={'./btc.svg'} alt='btc' width={100} height={100} className={(scroll>40 && scroll<700?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 translate-y-full -translate-x-full ")+ " hidden md:flex bg-cover md:w-[390px] md:h-[270px] lg:w-[500px] lg:h-[350px] duration-500 transition-all ease-in-out"} ></Image>
@@ -96,8 +113,6 @@ const HalvingBoy=lazy(()=>import('./components/models/Littleboy'),{ ssr:false})
           </div>
           
           
-          <CountdownTimer className={(scroll>2350?"opacity-100 translate-y-0 translate-x-0":"absolute opacity-0 -translate-y-full translate-x-full")+" duration-500 transition-all ease-in-out p-4 gap-4 flex flex-col "}/>
-          
         </div>
       
       
@@ -112,8 +127,71 @@ const HalvingBoy=lazy(()=>import('./components/models/Littleboy'),{ ssr:false})
           
       
       </section>
+
+
+      <section className={(scroll>2350?"opacity-100 translate-y-0  ":" opacity-0 translate-y-full translate-x-full ")+" fixed duration-500 transition-all ease-in-out backdrop-blur-lg bg-white/30order-last cursor-grab w-full h-[100vh] m-0 z-10 flex flex-col justify-center "}>
+        <Canvas className="w-full h-full"  camera={{ position: [-14, 7, 15], fov: 25 }}>
+             <OrbitControls ref={cameraRef}
+                  enableZoom={false}
+                  autoRotate={false}
+                  enablePan={true}
+                  dampingFactor={0.05}
+                  enableRotate={true} />
+             
+
+                <Suspense fallback={"Loading"}>
+                
+                <Center><HalvingBoyCorte play='active'/></Center>
+                  
+                
+                
+                </Suspense>
+                <Environment preset="sunset"/>
+              
+                
+                    <TextCrono/>
+              
+                  
+                
+              
+        </Canvas>
+        <div className="absolute bottom-12 flex flex-col items-center justify-center w-3/4 h-fit left-[12.5%] gap-4" >
+            <h4 className="text-2xl text-white font-bold">17 April 2024, 14:14 UTC</h4>
+            
+        </div>
+      
+      </section>
+
+      <section  className={(modal?'opacity-100 translate-y-0 bottom-0  ':' opacity-0 translate-y-100 -bottom-full')+" transition-all duration-500 fixed  z-30 rounded-t-[4rem] shadow-xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-700 h-[50vh] w-full grid md:grid-cols-2 grid-cols-1 md:grid-rows-1 grid-rows-2 p-6 gap-6"}>
+        <div className="w-full h-full flex flex-col p-6">
+          <h5 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl">Follow Us</h5>
+          <h5 className="text-white font-bold text-2xl">SOCIAL MEDIAS</h5>
+        </div>  
+        <div className="md:relative w-full h-full  grid grid-cols-4 gap-2 items-center">
+          <span className="w-full h-fit flex justify-center">
+            <Twitter className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+          </span>
+          <span className="w-full h-fit flex justify-center">
+            <Instagram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+          </span>
+          <span className="w-full h-fit flex justify-center">
+            <Facebook className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+          </span>
+          <span className="w-full h-fit flex justify-center">
+            <Telegram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+          </span>
+          <button className="absolute top-6 right-6  md:top-2 md:right-2" onClick={()=>setModal(false)}>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white hover:scale-105 hover:text-red-600">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+          </button>
+        </div> 
+      </section>
+      
+      
+
       <div className="absolute h-[250vh] md:h-[400vh] w-full bg-cover opacity-70" style={{backgroundImage:"url('./fondo.svg')"}}></div>
-      <span className="text-white animate-bounce w-[5%] h-fit fixed z-30 bottom-8 left-[47.5%]">
+      <span className={(scroll>2350 || modal?"hidden ": "text-white animate-bounce w-[5%] h-fit fixed z-30 bottom-8 left-[47.5%]")}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-amber-500 w-10 h-10">
           <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
         </svg>
