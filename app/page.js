@@ -57,7 +57,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
 
 
   return (
-    <motion.main className="cover min-h-[3000px] h-[380vh] md:h-[500vh] flex flex-col w-full bg-gradient-to-t from-amber-500 via-orange-50 to-orange-50 to-80%">
+    <motion.main className="cover min-h-[3500px] h-[380vh] md:h-[500vh] flex flex-col w-full bg-gradient-to-t from-amber-500 via-orange-50 to-orange-50 to-80%">
       <motion.section className={(scroll<65?"h-[90vh] ":"h-[100vh] ")+"fixed grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 h-[90vh] w-full z-10"}>
         <div className="order-last w-full h-full relative ">
             <Canvas 
