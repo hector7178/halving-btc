@@ -59,30 +59,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
     <motion.main className="cover min-h-[3500px] h-[380vh] md:h-[500vh] flex flex-col w-full bg-gradient-to-t from-amber-500 via-orange-50 to-orange-50 to-80%">
       <motion.section className={(scroll<65?"h-[90vh] ":"h-[100vh] ")+"fixed grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 h-[90vh] w-full z-10"}>
         <div className="order-last w-full h-full relative ">
-            <Canvas 
             
-            className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq bottom-0 opacity-0 translate-y-full -translate-x-full ")+" duration-500 transition-all ease-in-out h-full order-last w-full h-full cursor-grab"} camera={{ position: [1, 10, 10], fov: 25 }}>
-              
-            
-
-              <OrbitControls dampingFactor={0.05} maxAzimuthAngle={0.8} minAzimuthAngle={-1} maxPolarAngle={1.8}  enableRotate={true} minPolarAngle={1.2} enableZoom={false} />
-              <directionalLight color={'#ffffff'}  position={[100,0,100]} intensity={2}/>
-              <directionalLight color={'#ffffff'}  position={[0,100,0]} intensity={4}/>
-              <directionalLight color={'#ffffff'}  position={[-100,0,100]} intensity={4}/>
-              <Suspense fallback={<Loader/>}>
-                    <Center>
-                      <HalvingBoy 
-                      scale={0.8} 
-                      position={[0,0,0]}/>
-                    </Center>
-
-
-                    
-              </Suspense>
-              
-            </Canvas>
-            <buttom onClick={()=>setModal(true)} className={(scroll<40? (modal?'opacity-0 ':'opacity-100 ')+"translate-y-0 translate-x-0 ":" opacity-0 translate-y-full -translate-x-full ")+' shadow-xl absolute top-[15%] left-[70%] md:left-[20%] leading-4 flex rounded-full w-fit h-fit p-2 px-6 text-white bg-amber-600 font-bold hover:scale-110 transition-all duration-500 absolute z-20 cursor-pointer'}>Sup<br/>yo</buttom>
-              
 
             <div className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0 translate-x-0 w-full h-full ":"absoluteReq  opacity-0 -translate-y-full -translate-x-full w-[50vw] h-[100vh]")+" duration-500 transition-all ease-in-out bg-amber-500 md:shadow-lg md:backdrop-blur-xl md:bg-white/30 order-last cursor-grab flex justify-center items-center p-8 "}>
               <Image src={'./btc.svg'} alt='btc' width={100} height={100} className={(scroll>40 && scroll<700?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 translate-y-full -translate-x-full ")+ " hidden md:flex bg-cover md:w-[390px] md:h-[270px] lg:w-[500px] lg:h-[350px] duration-500 transition-all ease-in-out"} ></Image>
@@ -94,8 +71,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
             
         <div className="md:order-last size-full bg-transparent py-20 md:py-20 p-6 relative z-30">
           
-          <h1 className={(scroll<40?"opacity-100 translate-y-0 translate-x-0 ":"absoluteReq opacity-0 -translate-y-full translate-x-full ") +" duration-500 transition-all ease-in-out text-yellow-950 text-7xl md:text-8xl font-bold tittle"}>BITCOIN <br/> <span className="text-5xl text-amber-500">HALVING</span><br/> <span className="text-6xl">IS HERE!</span><br/> <Link href={'/?page=countdown'}  className="text-lg text-white bg-amber-500 rounded-lg w-fit h-fit p-2 hover:scale-105 hover:shadow-lg relative z-30">COUNTDOWN</Link></h1>
-          
+           
           <div id={'home'} className={(scroll>40 && scroll<1400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-500 transition-all ease-in-out backdrop-blur-xl bg-white/30 shadow-lg order-last cursor-grab w-full h-[100vh] flex flex-col justify-start items-center p-8"}>
               <div className={(scroll>40 && scroll<400?"opacity-100 translate-y-0  ":"absoluteReq  opacity-0 translate-y-full translate-x-full ")+"  duration-700 transition-all ease-in-out bg-white rounded-lg shadow-lg order-last cursor-grab w-fit h-fit p-4 md:p-8 flex flex-col gap-2 md:gap-6 "}>
                 <h4 className="text-amber-500 font-bold text-2xl sm:text-3xl">What is the Bitcoin halving?</h4>
@@ -128,14 +104,20 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
       </section>
 
 
-      <section className={(scroll>2350?"opacity-100 translate-y-0  ":" opacity-0 translate-y-full translate-x-full ")+" fixed duration-500 transition-all ease-in-out backdrop-blur-lg bg-white/30order-last cursor-grab w-full h-[100vh] m-0 z-10 flex flex-col justify-center "}>
+  <section className={(scroll<40?"opacity-100 translate-y-0  ":" opacity-0 translate-y-full translate-x-full ")+" fixed duration-500 transition-all ease-in-out backdrop-blur-lg bg-white/30order-last cursor-grab w-full h-[100vh] m-0 z-10 flex flex-col justify-center "}>
+        <buttom onClick={()=>setModal(true)} className={(scroll<40? (modal?'opacity-0 ':'opacity-100 ')+"translate-y-0 translate-x-0 ":" opacity-0 translate-y-full -translate-x-full ")+' shadow-xl rotate-[35deg] md:-rotate-[35deg] top-[45%] left-[70%] md:left-[32%] leading-4 flex rounded-full w-fit h-fit p-2 px-6 text-white bg-amber-600 font-bold hover:scale-110 transition-all duration-500 fixed z-30 cursor-pointer text-2xl'}>Sup<br/>yo</buttom>
+            
         <Canvas className="w-full h-full"  camera={{ position: [-13, 7, 15], fov: 25 }}>
              <OrbitControls ref={cameraRef}
                   enableZoom={false}
                   autoRotate={false}
                   enablePan={true}
                   dampingFactor={0.05}
-                  enableRotate={true} />
+                  enableRotate={true} 
+                  maxAzimuthAngle={0.5}
+                  minAzimuthAngle={-1.5}
+                  maxPolarAngle={1.5}
+                  minPolarAngle={0.5}/>
              
 
                 <Suspense fallback={<Loader/>}>
@@ -155,26 +137,29 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
             
         </div>
       
-      </section>
+  </section>
 
-      <section  className={(modal?'opacity-100 translate-y-0 bottom-0  ':' opacity-0 translate-y-100 -bottom-full')+" transition-all duration-500 fixed  z-30 rounded-t-[4rem] shadow-xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-700 h-[50vh] w-full grid md:grid-cols-2 grid-cols-1 md:grid-rows-1 grid-rows-2 p-6 gap-6"}>
+  <section  className={(modal?'opacity-100 translate-y-0 bottom-0  ':' opacity-0 translate-y-100 -bottom-full')+" transition-all duration-500 fixed  z-30 rounded-t-[4rem] shadow-xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-700 h-[50vh] w-full grid md:grid-cols-2 grid-cols-1 md:grid-rows-1 grid-rows-2 p-6 gap-6"}>
     <div className="w-full h-full flex flex-col p-6">
       <h5 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl">Follow Us</h5>
       <h5 className="text-white font-bold text-2xl">SOCIAL MEDIAS</h5>
     </div>  
-    <div className="md:relative w-full h-full  grid grid-cols-4 gap-2 items-center">
-      <span className="w-full h-fit flex justify-center">
+    <div className="md:relative w-full h-full  grid grid-cols-4 grid-rows-2 gap-2 items-center">
+      <span className="w-full h-fit flex justify-center col-span-1">
+        <Link href={'https://x.com/HalvingOnSol'} className="w-full h-full flex justify-center">
         <Twitter className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-      </span>
-      <span className="w-full h-fit flex justify-center">
-        <Instagram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-      </span>
-      <span className="w-full h-fit flex justify-center">
-        <Facebook className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-      </span>
-      <span className="w-full h-fit flex justify-center">
+        </Link>
+       </span>
+      <span className="w-full h-fit flex justify-center col-span-1">
+        <Link href={'https://t.me/HalvingOnSol'} className="w-full h-full flex justify-center">
         <Telegram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+        </Link>
       </span>
+      <div className="w-full h-full col-span-4 flex flex-col">
+        <span className="text-white font-bold text-xl">Contact us</span>
+        <span className="text-white font-bold text-lg">Email: Team@HalvingOnSol.com</span>
+      </div>
+      
       <button className="absolute top-6 right-6  md:top-2 md:right-2" onClick={()=>setModal(false)}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white hover:scale-105 hover:text-red-600">
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
