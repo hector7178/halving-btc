@@ -11,7 +11,7 @@ import {
   CameraControls,
   
 } from "@react-three/drei";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 
 export default function Hero() {
 
@@ -53,25 +53,26 @@ export default function Hero() {
 
     return () => clearInterval(interval);
   }, []);
-
-  useEffect(()=>{
+const { width: w, height: h } = useThree((state) => state.viewport);
+const ref = useRef();
+ useFrame(()=>{
     ref.current.rotation.z=0
-    ref.current.rotation.y=-2
-    ref.current.rotation.y=28
-    console.log(ref.current)
-  },[])
+    ref.current.rotation.x=0
+    ref.current.rotation.y=27.5
+    ref.current.position.y=5
+    ref.current.position.z=-12
+    ref.current.position.x=(w<11&& w>8)?-5:w<8?-4:-7
+  })
 
-  const ref = useRef();
+  
 
-  const { width: w, height: h } = useThree((state) => state.viewport);
-
+  
   return (
     <>
  
           <Text3D
-            
               position={[-5, 2, -3]}
-              scale={[-0.6, 0.6, 0.4]}
+              scale={w<11&& w>8?[-0.8, 0.8, 0.5]:w<8?[-0.8, 1, 0.4]:[-0.6, 0.6, 0.6]}
               ref={ref}
               size={w / 10}
               maxWidth={[-w / 5, -h * 2, 3]}

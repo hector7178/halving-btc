@@ -1,9 +1,9 @@
 'use client'
 import Image from "next/image";
-import { useMotionValueEvent,useScroll , motion, useSpring} from 'framer-motion'
-import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
-import { CameraControls, Center, Environment, OrbitControls, PresentationControls, Stars, Text, Text3D, useProgress } from "@react-three/drei";
+import { useMotionValueEvent,useScroll , motion} from 'framer-motion'
+import { Suspense, lazy,  useEffect, useRef, useState } from "react";
+import { Canvas} from "@react-three/fiber";
+import {  Center, Environment, OrbitControls } from "@react-three/drei";
 
 import { Html } from "@react-three/drei"
 import { useParams, useRouter } from "next/navigation";
@@ -19,7 +19,6 @@ export default function Home(params) {
   const { scrollY } = useScroll()
   const [scroll,setScroll]=useState(0)
   const [modal, setModal]=useState(false)
-  const [active,setActive]=useState('paused')
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScroll(latest)
   })
@@ -130,7 +129,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
 
 
       <section className={(scroll>2350?"opacity-100 translate-y-0  ":" opacity-0 translate-y-full translate-x-full ")+" fixed duration-500 transition-all ease-in-out backdrop-blur-lg bg-white/30order-last cursor-grab w-full h-[100vh] m-0 z-10 flex flex-col justify-center "}>
-        <Canvas className="w-full h-full"  camera={{ position: [-14, 7, 15], fov: 25 }}>
+        <Canvas className="w-full h-full"  camera={{ position: [-13, 7, 15], fov: 25 }}>
              <OrbitControls ref={cameraRef}
                   enableZoom={false}
                   autoRotate={false}
@@ -139,19 +138,15 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
                   enableRotate={true} />
              
 
-                <Suspense fallback={"Loading"}>
-                
-                <Center><HalvingBoyCorte play='active'/></Center>
-                  
-                
+                <Suspense fallback={<Loader/>}>
+                <Flex>
+                  <Center><HalvingBoyCorte /></Center>
+                  <Center><TextCrono/></Center>
+                </Flex>
                 
                 </Suspense>
                 <Environment preset="sunset"/>
               
-                
-                    <TextCrono/>
-              
-                  
                 
               
         </Canvas>
@@ -163,31 +158,30 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
       </section>
 
       <section  className={(modal?'opacity-100 translate-y-0 bottom-0  ':' opacity-0 translate-y-100 -bottom-full')+" transition-all duration-500 fixed  z-30 rounded-t-[4rem] shadow-xl bg-gradient-to-b from-amber-200 via-amber-400 to-amber-700 h-[50vh] w-full grid md:grid-cols-2 grid-cols-1 md:grid-rows-1 grid-rows-2 p-6 gap-6"}>
-        <div className="w-full h-full flex flex-col p-6">
-          <h5 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl">Follow Us</h5>
-          <h5 className="text-white font-bold text-2xl">SOCIAL MEDIAS</h5>
-        </div>  
-        <div className="md:relative w-full h-full  grid grid-cols-4 gap-2 items-center">
-          <span className="w-full h-fit flex justify-center">
-            <Twitter className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-          </span>
-          <span className="w-full h-fit flex justify-center">
-            <Instagram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-          </span>
-          <span className="w-full h-fit flex justify-center">
-            <Facebook className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-          </span>
-          <span className="w-full h-fit flex justify-center">
-            <Telegram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
-          </span>
-          <button className="absolute top-6 right-6  md:top-2 md:right-2" onClick={()=>setModal(false)}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white hover:scale-105 hover:text-red-600">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-          </svg>
-          </button>
-        </div> 
-      </section>
-      
+    <div className="w-full h-full flex flex-col p-6">
+      <h5 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl">Follow Us</h5>
+      <h5 className="text-white font-bold text-2xl">SOCIAL MEDIAS</h5>
+    </div>  
+    <div className="md:relative w-full h-full  grid grid-cols-4 gap-2 items-center">
+      <span className="w-full h-fit flex justify-center">
+        <Twitter className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+      </span>
+      <span className="w-full h-fit flex justify-center">
+        <Instagram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+      </span>
+      <span className="w-full h-fit flex justify-center">
+        <Facebook className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+      </span>
+      <span className="w-full h-fit flex justify-center">
+        <Telegram className='w-full h-1/4 max-w-[100px] max-h-[100px] text-white opacity-70 hover:scale-110 hover:opacity-100 transition-all duration-300'/>
+      </span>
+      <button className="absolute top-6 right-6  md:top-2 md:right-2" onClick={()=>setModal(false)}>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-10 h-10 text-white hover:scale-105 hover:text-red-600">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
+      </svg>
+      </button>
+    </div> 
+  </section>
       
 
       <div className="absolute h-[250vh] md:h-[400vh] w-full bg-cover opacity-70" style={{backgroundImage:"url('./fondo.svg')"}}></div>
