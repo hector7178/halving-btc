@@ -141,7 +141,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
                 <Suspense fallback={<Loader/>}>
                 <Flex>
                   <Center><HalvingBoyCorte /></Center>
-                  <Center><TextCrono/></Center>
+                  <TextCrono/>
                 </Flex>
                 
                 </Suspense>

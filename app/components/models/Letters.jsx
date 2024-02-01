@@ -58,10 +58,10 @@ const ref = useRef();
  useFrame(()=>{
     ref.current.rotation.z=0
     ref.current.rotation.x=0
-    ref.current.rotation.y=27.5
-    ref.current.position.y=5
-    ref.current.position.z=-12
-    ref.current.position.x=(w<11&& w>8)?-5:w<8?-4:-7
+    ref.current.rotation.y=27.6
+    ref.current.position.y=2
+    ref.current.position.z-2
+    ref.current.position.x=(w<11&& w>9)?-3:(w<9&& w>8)?2:(w<7.8)?0:-5
   })
 
   
@@ -72,7 +72,7 @@ const ref = useRef();
  
           <Text3D
               position={[-5, 2, -3]}
-              scale={w<11&& w>8?[-0.8, 0.8, 0.5]:w<8?[-0.8, 1, 0.4]:[-0.6, 0.6, 0.6]}
+              scale={w<11&& w>8?[-0.8, 0.8, 0.5]:w<8?[-0.6, 0.8, 0.4]:[-0.6, 0.6, 0.6]}
               ref={ref}
               size={w / 10}
               maxWidth={[-w / 5, -h * 2, 3]}
