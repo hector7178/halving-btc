@@ -56,7 +56,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
 
 
   return (
-    <motion.main className="cover min-h-[3500px] h-[380vh] md:h-[500vh] flex flex-col w-full bg-gradient-to-t from-amber-500 via-orange-50 to-orange-50 to-80%">
+    <motion.main className="cover min-h-[2350px] h-[380vh] md:h-[400vh] flex flex-col w-full bg-gradient-to-t from-amber-500 via-orange-50 to-orange-50 to-80%">
       <motion.section className={(scroll<65?"h-[90vh] ":"h-[100vh] ")+"fixed grid grid-rows-2 md:grid-rows-1 md:grid-cols-2 h-[90vh] w-full z-10"}>
         <div className="order-last w-full h-full relative ">
             
@@ -92,7 +92,7 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
       
       
       </motion.section>
-      <section className={(scroll>1400 && scroll<2350?"opacity-100 translate-y-0  ":" opacity-0 translate-y-full translate-x-full ")+" fixed duration-500 transition-all ease-in-out backdrop-blur-lg bg-white/30order-last cursor-grab w-full h-[100vh] m-0 z-10 flex flex-col justify-center gap-8 p-8"}>
+      <section className={(scroll>1400 ?"opacity-100 translate-y-0  ":" opacity-0 translate-y-full translate-x-full ")+" fixed duration-500 transition-all ease-in-out backdrop-blur-lg bg-white/30 order-last cursor-grab w-full h-[100vh] m-0 z-10 flex flex-col justify-center gap-8 p-8"}>
           <h4 className="text-amber-500 font-bold text-4xl ">Halving <span className={(scroll>1975?"opacity-100":"opacity-0")+" duration-300 transition-all ease-in-out"}>prices</span> </h4>
           <div className="flex flex-row w-fit">
             <div className="w-[800px] h-[355px] bg-cover" style={{backgroundImage:"url('./etapas.svg')",transform:`translateX(${(100*(1450-scroll))/475}%)`}}></div>  
@@ -132,8 +132,8 @@ const HalvingBoyCorte=lazy(()=>import('./components/models/LittleBoyCorte'),{ ss
                 
               
         </Canvas>
-        <div className="absolute bottom-12 flex flex-col items-center justify-center w-3/4 h-fit left-[12.5%] gap-4" >
-            <h4 className="text-2xl text-white font-bold">17 April 2024, 14:14 UTC</h4>
+        <div className="fixed bottom-[15vh] md:top-0 flex flex-col items-center justify-center w-3/4 h-fit left-[12.5%] gap-4 z-20" >
+            <h4 className=" text-sm md:text-lg text-amber-500 font-bold text-center opacity-70">Contract Address:<br/>8EBByLj1vajjRKRRMLPeTh6YnLaV42DZUgQ9TTX55wXo</h4>
             
         </div>
       

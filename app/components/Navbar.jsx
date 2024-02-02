@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useState } from 'react'
 import { useMotionValueEvent, useScroll } from 'framer-motion'
+import Image from 'next/image'
 
 function Navbar(prop) {
   
@@ -29,8 +30,9 @@ function Navbar(prop) {
   return (
   <>
    
-    <header className={(scroll>65?(!change?' fixed translate-y-0 origin-top transition-all duration-1000 ease-out ':' md:bg-orange-50 origin-top transition-all duration-1000 ease-out fixed md:-translate-y-full hover:translate-y-0 '):' bg-transparent md:bg-orange-50 fixed md:relative ')+'  w-full h-[11vh] grid grid-cols-5 z-20'}>
-      <div className='col-span-2'>
+    <header className={(scroll>65?(!change?' fixed translate-y-0 origin-top transition-all duration-1000 ease-out ':' origin-top transition-all duration-1000 ease-out fixed md:-translate-y-full hover:translate-y-0 '):' bg-transparent md:bg-orange-50 fixed md:relative ')+'  w-full h-[11vh] grid grid-cols-5 z-20'}>
+      <div className='col-span-2 p-4'>
+        <Image src={'/logo.svg'} alt='logo' width={100} height={100} className=' w-[220px] h-[60px] md:h-[80px] lg:h-[120px] '></Image>
 
       </div>
       <div className='col-span-3 flex justify-end '>
@@ -53,13 +55,7 @@ function Navbar(prop) {
               <span>How It Works?</span>
             </Link>
           </li>
-         
-          <li>
-            <Link href={'/?page=countdown'} className=' text-yellow-950 text-lg flex-row flex items-center gap-2 hover:border-b-2 rounded-lg hover:border-amber-500  p-2 ease-in-out duration-150 transition-all' >
-            
-              <span>Countdown</span>
-            </Link>
-          </li>
+        
         </ul> 
         
         <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>setOPen(true)} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={(open?"flex scale-0 opacity-0 w-8 h-8 absolute right-6 top-6":"scale-100 opacity-1 flex md:hidden w-8 h-8 absolute right-6 top-6")+' transition-all duration-300 ease-in-out text-yellow-950'}>
