@@ -11,7 +11,7 @@ const CountdownTimer = (prop) => {
   
 
   useEffect(() => {
-    const endDate = new Date("17 April 2024, 14:14 UTC");
+    const endDate = new Date("17 October 2025, 14:14 UTC");
     const interval = setInterval(() => {
       const now = new Date();
       const timeLeft = endDate - now;
@@ -50,7 +50,7 @@ const CountdownTimer = (prop) => {
 
     </Text>
     <Text font={"../font/ArchivoBlack-Regular.ttf"}>
-      {`17 April 2024, 14:14 UTC`}
+      {`17 October 2025, 14:14 UTC`}
       <meshBasicMaterial color={"white"}/>
     </Text>
         {/* <h4 className="text-white text-4xl w-full text-center font-bold">COUNTDOWN</h4>
