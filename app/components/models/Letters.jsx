@@ -24,7 +24,7 @@ export default function Hero() {
   
 
   useEffect(() => {
-    const endDate = new Date("17 April 2024, 14:14 UTC");
+    const endDate = new Date("17 October 2025, 14:14 UTC");
     const interval = setInterval(() => {
       const now = new Date();
       const timeLeft = endDate - now;
